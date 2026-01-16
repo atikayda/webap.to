@@ -1,6 +1,7 @@
 .*
 *.swp
 
+!.github
 !.gitignore
 !.dockerignore
 !.env.example
