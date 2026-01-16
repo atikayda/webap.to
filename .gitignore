@@ -1,0 +1,11 @@
+.*
+*.swp
+
+!.gitignore
+!.dockerignore
+!.env.example
+!.golangci.yml
+
+docker-compose.yml
+webap_cache.db
+webap

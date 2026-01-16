@@ -1,0 +1,119 @@
+x-webap-base: &webap-base
+  build: .
+  ports:
+    - "${PORT:-9847}:9847"
+  environment: &webap-env
+    PORT: 9847
+    DOMAIN: ${DOMAIN:-localhost}
+    SITE_NAME: ${SITE_NAME:-WebAP.to}
+    STATIC_DIR: /app/static
+  restart: unless-stopped
+
+services:
+  # SQLite (default)
+  # Run with: docker compose --profile sqlite up
+  webap-sqlite:
+    <<: *webap-base
+    profiles:
+      - sqlite
+    environment:
+      <<: *webap-env
+      DATABASE_URL: ${DATABASE_URL:-/data/webap_cache.db}
+    volumes:
+      - webap_data:/data
+
+  # PostgreSQL
+  # Run with: docker compose --profile postgres up
+  postgres:
+    image: postgres:16-alpine
+    profiles:
+      - postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-webap}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-webap}
+      POSTGRES_DB: ${POSTGRES_DB:-webap}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-webap}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  webap-postgres:
+    <<: *webap-base
+    profiles:
+      - postgres
+    environment:
+      <<: *webap-env
+      DATABASE_URL: postgres://${POSTGRES_USER:-webap}:${POSTGRES_PASSWORD:-webap}@postgres:5432/${POSTGRES_DB:-webap}?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # MySQL
+  # Run with: docker compose --profile mysql up
+  mysql:
+    image: mysql:8.0
+    profiles:
+      - mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_USER: ${MYSQL_USER:-webap}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-webap}
+      MYSQL_DATABASE: ${MYSQL_DB:-webap}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  webap-mysql:
+    <<: *webap-base
+    profiles:
+      - mysql
+    environment:
+      <<: *webap-env
+      DATABASE_URL: mysql://${MYSQL_USER:-webap}:${MYSQL_PASSWORD:-webap}@mysql:3306/${MYSQL_DB:-webap}
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # MongoDB
+  # Run with: docker compose --profile mongodb up
+  mongodb:
+    image: mongo:7
+    profiles:
+      - mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-webap}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-webap}
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  webap-mongodb:
+    <<: *webap-base
+    profiles:
+      - mongodb
+    environment:
+      <<: *webap-env
+      DATABASE_URL: mongodb://${MONGO_USER:-webap}:${MONGO_PASSWORD:-webap}@mongodb:27017/webap?authSource=admin
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+volumes:
+  webap_data:
+  postgres_data:
+  mysql_data:
+  mongodb_data:

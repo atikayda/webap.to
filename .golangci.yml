@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2025 Atikayda Pty Ltd
+# SPDX-License-Identifier: AGPL-3.0-only
+
+version: "2"
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters:
+  default: standard
+  enable:
+    - gocritic
+    - gosec
+    - misspell
+    - revive
+    - unconvert
+    - unparam
+  settings:
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - style
+        - performance
+    gosec:
+      excludes:
+        - G104
+    revive:
+      rules:
+        - name: exported
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - webap.to
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
