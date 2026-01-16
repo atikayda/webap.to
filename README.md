@@ -1,9 +1,6 @@
 # WebAP.to
 
-<center>
-![Logo](https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main/static/images/webap.webp)
-</center>
-
+<img src="https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main/static/images/webap.webp" width="280">
 One-click Fediverse interactions from anywhere.
 
 ## So what's the deal?
