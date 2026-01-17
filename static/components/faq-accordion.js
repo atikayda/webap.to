@@ -134,7 +134,15 @@ export class FaqAccordion extends LitElement {
       },
       {
         question: 'Is WebAP.to open source?',
-        answer: html`<p>Yes! WebAP.to is fully open source under the MIT license. You can find the code on <a href="https://github.com/webap-to" target="_blank" rel="noopener">GitHub</a> and run your own instance if you prefer.</p>`
+        answer: html`<p>Sure is! WebAP.to is fully open source under the AGPL-3.0-only license. You can find the code on GitHub (check the footer of this page) and run your own instance if you prefer.</p>`
+      },
+      {
+        question: 'Where can I find more information/report bugs/help out?',
+        answer: html`<p>Head over to the GitHub site or our Matrix room (check the footer of this page) and check them out.</p>`
+      },
+      {
+        question: 'What\'s the logo?',
+        answer: html`<p>It's 2 screw-type carabiners linked together.</p>`
       },
     ];
   }
