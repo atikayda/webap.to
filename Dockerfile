@@ -1,4 +1,4 @@
-FROM golang:1.24-alpine AS builder
+FROM golang:1-alpine AS builder
 
 RUN apk add --no-cache gcc musl-dev
 
@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /server .
 
-FROM alpine:3.20
+FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates tzdata
 
