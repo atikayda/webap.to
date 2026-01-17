@@ -74,7 +74,7 @@ Or with docker compose if that's your thing
 src=https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main
 curl $src/docker-compose.yml.prod -o docker-compose.yml
 curl $src/.env.example -o .env
-docker compose --profile sqlite up
+docker compose --profile sqlite up -d
 ```
 
 Pop your reverse proxy of choice in front and Jane's your aunt.
