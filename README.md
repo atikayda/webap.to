@@ -5,7 +5,7 @@ One-click Fediverse interactions from anywhere.
 
 ## So what's the deal?
 
-Right, so you know how following someone on a different Fediverse instance is a whole bloody rigmarole? Copy their handle, open your instance, paste it, search, wait, *then* finally hit follow. It's cooked.
+Right, so you know how following someone on a different Fediverse instance is a whole bloody rigmarole? Copy their handle, open your instance, paste it, search, wait, *then* finally hit follow. It's cooked!
 
 Traditionally people have been be trying to solve the whole thing by creating redirector sites that you go to and set your home instance and then give out a link like `https://fediredirector.link/sourceinstanceinfo.whatever`.
 
@@ -67,8 +67,10 @@ Follow, boost, reply - all from your home instance
 docker run -p 9847:9847 -v webap_data:/data docker.atikayda.com/webap/webap.to:latest
 
 # Or with docker compose if that's your thing
-curl -O https://raw.githubusercontent.com/user/webap.to/main/docker-compose.yml.prod
-docker compose -f docker-compose.yml.prod --profile sqlite up
+src=https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main
+curl -O $src/docker-compose.yml.prod -o docker-compose.yml
+curl -O $src/.env.example -o .env
+docker compose --profile sqlite up
 ```
 
 Pop your reverse proxy of choice in front and Jane's your aunt.
@@ -222,4 +224,4 @@ curl "https://webap.to/api/software?instance=mastodon.social"
 
 AGPL-3.0-only - Buy it, use it, break it, fix it, trash it, change it, mail – upgrade it... just make sure you provide your changes back to the community if they want it.
 
-Built by [Atikayda](https://atikayda.com) in Brisbane. The people who brought you Blåhaj zone.
+Built by [Atikayda](https://atikayda.com) in Brizzy. The people who brought you Blåhaj zone.
