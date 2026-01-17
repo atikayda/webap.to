@@ -22,7 +22,8 @@ import (
 //   - GET / - Landing page
 //   - GET /css/*, /js/*, /images/*, /components/*, /dist/* - Static assets
 //   - GET /manifest.json, /sw.js, /handle.html, /set-home.html - PWA files
-//   - GET /* (anything else) - Redirects to /handle.html for client-side routing
+//   - GET /authorize_interaction?uri={uri} - Protocol handler endpoint
+//   - GET /* (anything else) - Serves handle.html for client-side routing
 type Server struct {
 	http.Server
 	cache  cache.Cache
@@ -75,6 +76,8 @@ func New(cfg *config.Config, staticFS fs.FS) *Server {
 			return
 		}
 
+		// All other paths (including /authorize_interaction) serve handle.html
+		// which handles protocol redirects client-side
 		r.URL.Path = "/handle.html"
 		fileServer.ServeHTTP(w, r)
 	})

@@ -5,13 +5,13 @@ export function supportsProtocolHandler() {
   return typeof navigator !== 'undefined' && 'registerProtocolHandler' in navigator;
 }
 
-export function registerHandler(instanceDomain) {
+export function registerHandler(domain = window.location.host) {
   if (!supportsProtocolHandler()) {
     return { success: false, reason: 'unsupported' };
   }
 
   try {
-    const handlerUrl = `https://${instanceDomain}/authorize_interaction?uri=%s`;
+    const handlerUrl = `https://${domain}/authorize_interaction?uri=%s`;
     navigator.registerProtocolHandler('web+ap', handlerUrl);
     return { success: true };
   } catch (err) {

@@ -23,7 +23,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+ap",
-      "url": "/handle.html?uri=%s"
+      "url": "/authorize_interaction?uri=%s"
     }
   ],
   "categories": ["social", "utilities"],

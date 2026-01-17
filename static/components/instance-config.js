@@ -179,6 +179,7 @@ export class InstanceConfig extends LitElement {
         width: 20px;
         height: 20px;
         flex-shrink: 0;
+        filter: drop-shadow(-0.5px -1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0.5px 1px 0.5px rgba(0, 0, 0, 0.3));
       }
     }
 
@@ -272,6 +273,7 @@ export class InstanceConfig extends LitElement {
         flex-shrink: 0;
         opacity: 0;
         transition: opacity 0.15s ease;
+        filter: drop-shadow(-0.5px -1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0.5px 1px 0.5px rgba(0, 0, 0, 0.3));
 
         &.visible {
           opacity: 1;
@@ -325,6 +327,7 @@ export class InstanceConfig extends LitElement {
           vertical-align: middle;
           opacity: 0.7;
           margin-right: -4px;
+          filter: drop-shadow(-0.5px -1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0.5px 1px 0.5px rgba(0, 0, 0, 0.3));
         }
       }
 
@@ -458,7 +461,7 @@ export class InstanceConfig extends LitElement {
     setConfig(this.config);
 
     if (supportsProtocolHandler()) {
-      registerHandler(domain);
+      registerHandler();
     }
 
     this.dispatchEvent(new CustomEvent('instance-configured', {

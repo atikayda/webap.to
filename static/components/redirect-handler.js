@@ -173,7 +173,7 @@ export class RedirectHandler extends LitElement {
       target = parseWebApUrl(url.pathname.slice(1));
     }
 
-    if (!target || target === '' || target === 'handle.html') {
+    if (!target || target === '' || target === 'handle.html' || target === 'authorize_interaction') {
       this.status = 'error';
       return;
     }

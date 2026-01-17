@@ -11,27 +11,40 @@
     return typeof navigator !== 'undefined' && 'registerProtocolHandler' in navigator;
   }
 
+  function registerHandler(domain = window.location.host) {
+    if (!supportsProtocolHandler()) {
+      return { success: false, reason: 'unsupported' };
+    }
+
+    try {
+      const handlerUrl = `https://${domain}/authorize_interaction?uri=%s`;
+      navigator.registerProtocolHandler('web+ap', handlerUrl);
+      return { success: true };
+    } catch (err) {
+      return { success: false, reason: err.message };
+    }
+  }
+
   function setHome(instanceDomain) {
     const domain = instanceDomain.toLowerCase().trim().replace(/^https?:\/\//, '').split('/')[0];
 
-    if (supportsProtocolHandler()) {
-      try {
-        const handlerUrl = `https://${domain}/authorize_interaction?uri=%s`;
-        navigator.registerProtocolHandler('web+ap', handlerUrl);
+    try {
+      localStorage.setItem(STORAGE_KEY, domain);
+    } catch (e) {}
 
-        try {
-          localStorage.setItem(STORAGE_KEY, domain);
-        } catch (e) {}
-
-        return { success: true, method: 'native' };
-      } catch (err) {
-        console.warn('WebAP: Native protocol handler failed, using fallback', err);
-      }
+    const result = registerHandler();
+    if (result.success) {
+      return { success: true, method: 'native' };
     }
 
-    const returnUrl = encodeURIComponent(window.location.href);
-    window.location.href = `${WEBAP_URL}/set-home?instance=${encodeURIComponent(domain)}&return=${returnUrl}`;
-    return { success: true, method: 'fallback' };
+    if (result.reason === 'unsupported') {
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.href = `${WEBAP_URL}/set-home?instance=${encodeURIComponent(domain)}&return=${returnUrl}`;
+      return { success: true, method: 'fallback' };
+    }
+
+    console.warn('WebAP: Protocol handler failed:', result.reason);
+    return { success: false, reason: result.reason };
   }
 
   function getHome() {
@@ -95,6 +108,7 @@
   }
 
   const WebAP = {
+    registerHandler,
     setHome,
     getHome,
     clearHome,
