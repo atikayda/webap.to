@@ -7,9 +7,9 @@ One-click Fediverse interactions from anywhere.
 
 Right, so you know how following someone on a different Fediverse instance is a whole bloody rigmarole? Copy their handle, open your instance, paste it, search, wait, *then* finally hit follow. It's cooked.
 
-Traditionally people'd be tryin' to solve the whole thing by creating a redirector site that you go to and set your home instance and then give out a link like `https://mydumbredirector.link/sourceinstanceinfo.bunk/whatever`.
+Traditionally people have been be trying to solve the whole thing by creating redirector sites that you go to and set your home instance and then give out a link like `https://fediredirector.link/sourceinstanceinfo.whatever`.
 
-**So what's wrong with that?**
+**Sure, but what's wrong with that?**
 
 Glad you asked. It has a few problems.
 
@@ -17,13 +17,13 @@ Firstly it makes me use your redirector site, this creates a single point of fai
 
 Secondly we don't know what the future holds; What if that site decides to up and go down? Link-rot, that's what. Blech.
 
-Happily a bunch of smart pumpkins have been mulling over this whole problem for a bit now, and they came up with the `web+ap://` URI scheme (over [here](https://github.com/tuskyapp/Tusky/issues/5027), which is based on the older web+activitypub proposal [fep-07d7](https://codeberg.org/fediverse/fep/src/branch/main/fep/07d7/fep-07d7.md)).
+Happily a bunch of smart punkins have been mulling over this whole problem for a bit now, and they came up with the `web+ap://` URI scheme (over [here](https://github.com/tuskyapp/Tusky/issues/5027), which is based on the older web+activitypub proposal [fep-07d7](https://codeberg.org/fediverse/fep/src/branch/main/fep/07d7/fep-07d7.md)).
 
 It's like `mailto:` but for the Fediverse. Click a link, land on your home instance, get on with your day.
 
 **So why am I just hearing about it?**
 
-It's the old chicken and egg thing again. While there's support out there for it, not many people use it because there's not much support for it and not many people add support for it because there's not many people using it.
+It's the old chook and goog thing. While there's support out there for it, not many people use it because there's not much support for it and not many people add support for it because there's not many people using it.
 
 What we need is a bridge to allow it to work while it's ramping to UBIQUITOUS levels of support.
 
@@ -60,7 +60,7 @@ Follow, boost, reply - all from your home instance
 
 ## Getting started
 
-### Docker (the no wokkas option)
+### Docker (the no wukkas option)
 
 ```bash
 # SQLite - dead simple, perfect for most setups
@@ -131,7 +131,7 @@ Want Fediverse links on your site? Just use `web+ap://` URLs:
 <a href="web+ap://pixelfed.social/p/12345">View on Fediverse</a>
 ```
 
-Some browsers are a bit behind on protocol handlers, so chuck in the fallback script just before the `</body>`:
+Some browsers are a bit behind on protocol handlers, so chuck in the fallback script just before the `</body>` (it'll catch everyone who falls through the cracks):
 
 ```html
 <script src="https://webap.to/dist/webap-links.js" defer></script>
@@ -213,6 +213,10 @@ curl "https://webap.to/api/software?instance=mastodon.social"
 ## FAQ:
 
 **What's the logo?** It's 2 screw-type carabiners linked together.
+
+**Are you scraping our information?**<br/>
+**What if I don't want you to see where I'm visiting?**<br/>
+**What if I don't trust you?** Good! You shouldn't trust anyone. Setup your own instance. Be my guest. Check out the code. It's all there. Make changes if you don't like how it works. I double-dog dare you.
 
 ## License
 
