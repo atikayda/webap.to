@@ -82,10 +82,6 @@ func toAtlasURL(dsn string) string {
 	if strings.Contains(dsn, "://") {
 		return dsn
 	}
-	// Special case for in-memory SQLite
-	if dsn == ":memory:" {
-		return "sqlite://:memory:"
-	}
-	// File path - Atlas expects sqlite://file:path format
-	return "sqlite://file:" + dsn
+	// SQLite path - Atlas expects sqlite:// + path
+	return "sqlite://" + dsn
 }
