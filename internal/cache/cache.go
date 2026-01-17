@@ -129,13 +129,14 @@ func RegisterFactory(handler Factory, schemes ...string) error {
 
 func routeStore(dsn string) (Cache, error) {
 	var match Factory
-	var specificity int
+	specificity := -1
 
 	for prefix, factory := range cacheFactories {
 		if strings.HasPrefix(dsn, prefix) {
 			n := len(prefix)
 			if specificity < n {
 				match = factory
+				specificity = n
 			}
 		}
 	}

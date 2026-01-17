@@ -107,7 +107,7 @@ func SoftwareHandler(w http.ResponseWriter, r *http.Request) {
 	instance = normalizeInstance(instance)
 
 	if instanceCache != nil {
-		if info, err := instanceCache.Get(instance); err == nil {
+		if info, err := instanceCache.Get(instance); err == nil && info != nil {
 			w.Header().Set("Content-Type", "application/json")
 			_ = json.NewEncoder(w).Encode(softwareResponse{
 				Software: info.Software,
