@@ -6,6 +6,7 @@ package cache
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"ariga.io/atlas/sql/schema"
 	"ariga.io/atlas/sql/sqlclient"
@@ -74,8 +75,17 @@ func autoMigrate(ctx context.Context, dsn string) error {
 }
 
 func toAtlasURL(dsn string) string {
-	if dsn != "" && dsn[0] == '/' {
-		return "sqlite://" + dsn
+	if dsn == "" {
+		return dsn
 	}
-	return dsn
+	// Already has a scheme
+	if strings.Contains(dsn, "://") {
+		return dsn
+	}
+	// Special case for in-memory SQLite
+	if dsn == ":memory:" {
+		return "sqlite://:memory:"
+	}
+	// File path - Atlas expects sqlite://file:path format
+	return "sqlite://file:" + dsn
 }
