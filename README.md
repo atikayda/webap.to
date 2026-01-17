@@ -216,7 +216,7 @@ curl "https://webap.to/api/software?instance=mastodon.social"
 
 **Are you scraping our information?**<br/>
 **What if I don't want you to see where I'm visiting?**<br/>
-**What if I don't trust you?** Good! You shouldn't trust anyone. Setup your own instance. Be my guest. Check out the code. It's all there. Make changes if you don't like how it works. I double-dog dare you.
+**What if I don't trust you?** Good! You shouldn't trust anyone. Setup your own instance. Be my guest. Check out the code. It's all there. Make changes if you don't like how it works. I double-dog dare ya!
 
 ## License
 
