@@ -68,8 +68,8 @@ docker run -p 9847:9847 -v webap_data:/data docker.atikayda.com/webap/webap.to:l
 
 # Or with docker compose if that's your thing
 src=https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main
-curl -O $src/docker-compose.yml.prod -o docker-compose.yml
-curl -O $src/.env.example -o .env
+curl $src/docker-compose.yml.prod -o docker-compose.yml
+curl $src/.env.example -o .env
 docker compose --profile sqlite up
 ```
 
