@@ -62,11 +62,15 @@ Follow, boost, reply - all from your home instance
 
 ### Docker (the no wukkas option)
 
-```bash
-# SQLite - dead simple, perfect for most setups
-docker run -p 9847:9847 -v webap_data:/data docker.atikayda.com/webap/webap.to:latest
+SQLite - dead simple, perfect for most setups
 
-# Or with docker compose if that's your thing
+```bash
+docker run -p 9847:9847 -v webap_data:/data docker.atikayda.com/webap/webap.to:latest
+```
+
+Or with docker compose if that's your thing
+
+```bash
 src=https://raw.githubusercontent.com/atikayda/webap.to/refs/heads/main
 curl $src/docker-compose.yml.prod -o docker-compose.yml
 curl $src/.env.example -o .env
